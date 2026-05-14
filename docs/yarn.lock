@@ -1442,15 +1442,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"astro-md-alternate@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "astro-md-alternate@npm:0.1.0"
-  peerDependencies:
-    astro: ^5.0.0
-  checksum: 10c0/0ca9378232ca6fde9d4ccd45fc189254191f85bd64ec3f65ca7c115ce6aea8e7a9cc75e487a14fb192f026fe1c4690ebb398a9d0d62499a7cf701c509e62e3d4
-  languageName: node
-  linkType: hard
-
 "astro-pagefind@npm:^2.0.0":
   version: 2.0.0
   resolution: "astro-pagefind@npm:2.0.0"
@@ -1829,7 +1820,6 @@ __metadata:
     "@tailwindcss/typography": "npm:^0.5.19"
     "@tailwindcss/vite": "npm:^4.2.4"
     astro: "npm:6.3.1"
-    astro-md-alternate: "npm:^0.1.0"
     astro-pagefind: "npm:^2.0.0"
     daisyui: "npm:^5.5.19"
     pagefind: "npm:^1.5.2"
