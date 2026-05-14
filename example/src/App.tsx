@@ -248,7 +248,7 @@ function Showcase() {
             border
             shadow
             backgroundColor={{ true: 'secondary', false: 'surface' }}
-            checkColor={{ true: 'onSecondary', false: 'transparent' }}
+            checkColor={{ true: 'onSecondary', false: 'onSurface' }}
           />
           <Text>Custom colors</Text>
         </View>
@@ -306,7 +306,7 @@ function Showcase() {
             shadow
             radius="full"
             backgroundColor={{ true: 'secondary', false: 'surface' }}
-            innerColor={{ true: 'onSecondary', false: 'transparent' }}
+            innerColor={{ true: 'onSecondary', false: 'onSurface' }}
           />
           <Text>Custom colors</Text>
         </View>
