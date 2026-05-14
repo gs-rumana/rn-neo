@@ -31,7 +31,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Build
-        run: yarn build
+        run: yarn prepare
 
       - name: Publish
         run: npm publish --access public
