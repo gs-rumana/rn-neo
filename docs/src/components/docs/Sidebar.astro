@@ -1,0 +1,56 @@
+---
+import { sidebar, type SidebarItem } from '../../sidebar.config.ts';
+
+const { currentPath } = Astro.props;
+const groupActive = (items: SidebarItem[]) => {
+  return items.some(item => item.href === currentPath);
+}
+---
+
+{sidebar.map((group) => (
+  group.title ? (
+  <div class:list={[{"collapse-open": groupActive(group.items)}, "collapse collapse-arrow"]}>
+    <input type="checkbox" class="p-0" />
+    <div class="collapse-title font-semibold p-0">{group.title}</div>
+    <div class="collapse-content text-sm p-2">
+      <ul class="menu menu-sm w-full p-0 mt-0">
+        {group.items.map((item) => {
+          const isActive = currentPath === item.href;
+          return (
+            <li>
+              <a
+              href={item.href}
+              class:list={[
+              'font-medium btn justify-start',
+              isActive ? 'btn-primary btn-active brutal-shadow brutal-shadow-sm' : 'btn-ghost hover:btn-primary'
+            ]}
+              >
+              {item.title}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </div>
+    ) : (
+  <ul class="menu menu-sm w-full p-0 mb-2">
+    {group.items.map((item) => {
+      const isActive = currentPath === item.href;
+      return (
+        <li>
+          <a
+          href={item.href}
+          class:list={[
+          'font-medium btn justify-start',
+          isActive ? 'btn-primary btn-active brutal-shadow brutal-shadow-sm' : 'btn-ghost hover:btn-primary'
+        ]}
+          >
+          {item.title}
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+    )
+  ))}

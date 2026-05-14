@@ -1,0 +1,229 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/main/Card.astro';
+
+import {highlight} from '../utils/highlight.ts';
+
+const wrapCode = highlight(`// App.tsx
+  import { ThemeProvider } from 'rn-neo';
+
+  export default function App() {
+    return (
+      <ThemeProvider>
+        {/* your app */}
+      </ThemeProvider>
+    );
+  }`, 'tsx');
+
+const useCode = highlight(`import { Button } from 'rn-neo';
+
+  <Button variant="primary">Press me</Button>`, 'tsx');
+---
+
+<Layout>
+  <section class="cross-bg py-20 md:py-10 px-4">
+    <div class="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-4 items-center min-h-[90dvh]">
+      <div>
+        <h1 class="text-[14vw] lg:text-[7vw] font-bold text-primary leading-none"><span
+          class="brutal-text-shadow text-outline">Build</span><br /><span
+          class="font-outline text-neutral brutal-text-shadow shadow-secondary">Different</span></h1>
+        <p class="text-2xl my-5 font-bold">Bring <span class="italic">Neo Brutalism</span> to <span
+          class="text-primary text-outline">React Native</span>. <span class="font-outline">Raw borders</span>. <span
+          class="brutal-text-shadow shadow-secondary brutal-shadow-sm">Thick shadows</span>. <span class="text-accent">Flat colors</span>.
+          <span class="text-error">&lt;Components /&gt;</span> that refuse to <span
+            class="card card-body inline-block p-1 text-2xl bg-primary border-2 -rotate-6">blend in.</span></p>
+        <a href="/docs/introduction" class="btn btn-secondary border-2 border-base-300 brutal-shadow">Get Started</a>
+      </div>
+      <div class="flex flex-col justify-center">
+        <span class="text-base-content/70">// Card.ts</span>
+        <div class="card bg-base-200 brutal-shadow border-2">
+          <div class="card-body">
+            <span class="text-base-content/70">// Button.ts</span>
+            <div class="flex flex-wrap gap-4">
+              <button class="btn btn-primary border-2 border-base-300 brutal-shadow">Primary</button>
+              <button class="btn btn-secondary border-2 border-base-300 brutal-shadow">Secondary</button>
+              <button class="btn btn-accent brutal-shadow">Without border</button>
+              <button class="btn btn-error">Without shadow</button>
+              <button class="btn btn-neutral border-2 border-base-300 brutal-shadow shadow-secondary">Colored shadow
+              </button>
+            </div>
+
+            <span class="text-base-content/70 mt-5">// Controls.ts</span>
+            <div class="flex flex-wrap gap-4">
+              <input type="checkbox" checked class="checkbox bg-primary border-base-300 border brutal-shadow" />
+              Checkbox
+              <input type="radio" class="radio bg-primary border-base-300 border brutal-shadow" />
+              Radio
+              <input type="checkbox" checked="checked" class="toggle" />
+              Switch
+            </div>
+
+            <span class="text-base-content/70 mt-5">// Badges.ts</span>
+            <div class="flex flex-wrap gap-4">
+              <span class="badge badge-primary">Badge</span>
+              <span class="badge badge-secondary rounded-full">Badge</span>
+              <span class="badge badge-accent brutal-shadow brutal-shadow-sm">Badge</span>
+              <span class="badge badge-error border-2 border-base-300">Badge</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee-container -rotate-brutal z-10 relative overflow-visible py-3 scale-110">
+    <div class="marquee-content text-3xl font-bold uppercase flex items-center">
+        <div class="flex items-center gap-8">
+          40+ Components <i class="ri-star-fill"></i> Dark Mode <i class="ri-star-fill"></i> TypeScript <i class="ri-star-fill"></i> Expo Ready <i class="ri-star-fill"></i> Fully Customizable <i class="ri-star-fill"></i> Buttons <i class="ri-star-fill"></i> Cards <i class="ri-star-fill"></i> Modals <i class="ri-star-fill"></i> Animations <i class="ri-star-fill"></i> Zero Boilerplate <i class="ri-star-fill"></i> 40+ Components <i class="ri-star-fill"></i> Dark Mode <i class="ri-star-fill"></i> TypeScript <i class="ri-star-fill"></i> Expo Ready <i class="ri-star-fill"></i> Fully Customizable <i class="ri-star-fill"></i> Buttons <i class="ri-star-fill"></i> Cards <i class="ri-star-fill"></i> Modals <i class="ri-star-fill"></i> Animations <i class="ri-star-fill"></i> Zero Boilerplate <i class="ri-star-fill"></i>
+        </div>
+    </div>
+  </div>
+  <section class="mt-30 container mx-auto">
+    <h2 class="text-center text-4xl font-bold">Try it right away<span class="font-outline text-secondary brutal-text-shadow brutal-shadow-sm">!</span></h2>
+    <p class="text-center mb-4 text-lg text-base-content/70">Change code, play around, try whatever you want</p>
+    <div
+      data-snack-id="@gs-rumana/rn-neo-example"
+      data-snack-platform="web"
+      data-snack-preview="true"
+      data-snack-theme="light"
+      data-snack-loading="lazy"
+      class="brutal-shadow brutal-shadow-lg max-w-3/4 mx-auto"
+      style="overflow:hidden;background:#fafafa;border:1px solid rgba(0,0,0,.08);border-radius:4px;height:505px;width:100%">
+    </div>
+  </section>
+  <section class="mt-30 px-5 container mx-auto">
+    <div class="text-4xl text-center"><span class="u-line">Really?</span> Another Library just for UI!</div>
+    <p class="text-center mt-2 text-lg text-base-content/70">It's not just library! It's a system for your app.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center gap-4 mt-10">
+      <Card title="Design Tokens, not hardcoded styles" image="/features/f1.webp">
+        <ul>
+          <li>Centralized colors, spacing, radius, typography</li>
+          <li>Update theme → entire app updates</li>
+          <li>No scattered style overrides</li>
+        </ul>
+      </Card>
+      <Card title="Components that compose, not restrict" image="/features/f2.webp">
+        <ul>
+          <li>Small building blocks</li>
+          <li>Extend without rewriting</li>
+          <li>No rigid “one way” patterns</li>
+        </ul>
+      </Card>
+      <Card title="Theming that actually scales" image="/features/f3.webp">
+        <ul>
+          <li>Multiple themes support</li>
+          <li>Runtime theme switching</li>
+          <li>Consistent behavior across all components</li>
+        </ul>
+      </Card>
+      <Card title="Consistency by default" image="/features/f4.webp">
+        <ul>
+          <li>Shared spacing + layout rules</li>
+          <li>Predictable component behavior</li>
+          <li>Design-system aligned</li>
+        </ul>
+      </Card>
+      <Card title="Developer-first ergonomics" image="/features/f5.webp">
+        <ul>
+          <li>TypeScript-first APIs</li>
+          <li>Clear props, minimal config</li>
+          <li>Works with Expo out of the box</li>
+        </ul>
+      </Card>
+      <Card title="Built for real apps, not demos" image="/features/f6.webp">
+        <ul>
+          <li>Handles complex layouts</li>
+          <li>Reusable patterns</li>
+          <li>Stable structure for large codebases</li>
+        </ul>
+      </Card>
+    </div>
+  </section>
+  <section class="container mx-auto mt-30 px-5">
+    <div class="text-4xl text-center">Enough Talking! Now, get started</div>
+    <p class="text-center mt-2 text-lg text-base-content/70">Install it and use it. That's it</p>
+
+    <div class="w-full md:w-2/3 mx-auto">
+      <div class="mt-10"><span class="font-outline text-xl">1.</span> Install the required packages</div>
+      <div class="tabs tabs-border">
+        <input type="radio" name="pkg_manager" role="tab" class="tab font-bold" aria-label="npm" checked />
+        <div role="tabpanel" class="tab-content border-black brutal-shadow shadow-secondary">
+          <div class="mockup-code">
+            <pre data-prefix="$"><code>npm install rn-neo react-native-reanimated</code></pre>
+          </div>
+        </div>
+
+        <input type="radio" name="pkg_manager" role="tab" class="tab font-bold" aria-label="yarn" />
+        <div role="tabpanel" class="tab-content border-black brutal-shadow shadow-secondary">
+          <div class="mockup-code">
+            <pre data-prefix="$"><code>yarn add rn-neo react-native-reanimated</code></pre>
+          </div>
+        </div>
+
+        <input type="radio" name="pkg_manager" role="tab" class="tab font-bold" aria-label="pnpm" />
+        <div role="tabpanel" class="tab-content border-black brutal-shadow shadow-secondary">
+          <div class="mockup-code">
+            <pre data-prefix="$"><code>pnpm add rn-neo react-native-reanimated</code></pre>
+          </div>
+        </div>
+
+        <input type="radio" name="pkg_manager" role="tab" class="tab font-bold" aria-label="expo" />
+        <div role="tabpanel" class="tab-content border-black brutal-shadow shadow-secondary">
+          <div class="mockup-code">
+            <pre data-prefix="$"><code>npx expo install rn-neo react-native-reanimated</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div role="alert" class="alert alert-warning mt-10">
+        <i class="ri-information-line text-2xl"></i>
+        <span>Check <a href="https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/getting-started/" target="_blank" class="link">react-native-reanimated</a> installation steps if you have trouble building the app.</span>
+      </div>
+
+      <div class="mt-10"><span class="font-outline text-xl">2.</span> Wrap your app in Provide component</div>
+      <div class="mockup-code brutal-shadow shadow-secondary" set:html={wrapCode}></div>
+
+      <div class="mt-10"><span class="font-outline text-xl">3.</span> Use the components</div>
+      <div class="mockup-code brutal-shadow shadow-secondary" set:html={useCode}></div>
+    </div>
+  </section>
+  <section class="mt-30">
+    <div class="text-4xl text-center">Start building with rn-neo</div>
+
+    <div class="flex justify-center gap-4 mt-5">
+      <a href="/docs/introduction" class="btn btn-primary border-2">Get Started</a>
+      <a href="https://github.com/gs-rumana/rn-neo" class="btn btn-neutral border-2">Star on GitHub</a>
+    </div>
+  </section>
+  <footer class="bg-neutral text-neutral-content py-5 px-7 mt-10">
+    <div class="container mx-auto flex gap-4 flex-wrap justify-baseline">
+      <div class="flex-1">Open source UI Library</div>
+      <div class="flex-1 text-right">Built with ❤️ by <a href="https://gs-rumana.com" class="link">GS Rumana</a></div>
+    </div>
+  </footer>
+</Layout>
+
+<script async src="https://snack.expo.dev/embed.js"></script>
+<script>
+  const crossBg = document.querySelector('.cross-bg') as HTMLElement;
+
+  if (crossBg) {
+    let isVisible = false;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        isVisible = entry.isIntersecting;
+      });
+    }, { threshold: 0 });
+
+    observer.observe(crossBg);
+
+    window.addEventListener('scroll', () => {
+      if (isVisible) {
+        const scrollY = window.scrollY;
+        crossBg.style.backgroundPosition = `0, ${scrollY * 0.5}px ${scrollY * -1}px`;
+      }
+    });
+  }
+</script>

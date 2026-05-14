@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rn-neo.gs-rumana.com/sitemap-index.xml
