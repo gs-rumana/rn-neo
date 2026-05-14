@@ -41,11 +41,11 @@
   "scripts": {
     "example": "yarn workspace rn-neo-example",
     "clean": "del-cli lib",
-    "prepare": "bob build",
+    "prepare": "bob build && yarn build:plugin",
     "typecheck": "tsc",
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "build:plugin": "tsc --project plugin/tsconfig.json",
-    "prepublishOnly": "yarn build:plugin"
+    "prepublishOnly": "yarn prepare"
   },
   "keywords": [
     "react-native",

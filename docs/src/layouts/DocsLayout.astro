@@ -1,6 +1,4 @@
 ---
-import { MarkdownAlternateLink } from 'astro-md-alternate/components';
-
 import Sidebar from '../components/docs/Sidebar.astro';
 import '../styles/global.css';
 import Search from '../components/docs/Search.astro';
@@ -44,8 +42,6 @@ const currentPath = Astro.url.pathname;
       property="twitter:image"
       content={new URL('/rn-neo-cover.png', Astro.url)}
     />
-
-    <MarkdownAlternateLink />
   </head>
   <body class="prose prose-neutral max-w-none">
     <div class="drawer lg:drawer-open">
