@@ -1,0 +1,352 @@
+@import 'tailwindcss';
+@import 'fumadocs-ui/css/neutral.css';
+@import 'fumadocs-ui/css/preset.css';
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/space-grotesk";
+@import "@fontsource/space-mono";
+@import "@fontsource/tourney";
+
+* {
+  font-variant-ligatures: none;
+}
+
+@custom-variant dark (&:is(.dark *));
+
+html {
+  scrollbar-gutter: stable;
+}
+
+html > body[data-scroll-locked] {
+  margin-right: 0px !important;
+  --removed-body-scroll-bar-size: 0px !important;
+}
+
+@theme inline {
+  --font-heading: var(--font-sans);
+  --font-sans: 'Space Grotesk Variable', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* neobrutalism shadcn registry aliases — bridge ui/button + ui/card
+     (bg-main, shadow-shadow, translate-x-boxShadowX, rounded-base, font-base)
+     onto the real theme tokens so those components actually render. */
+  --color-main: var(--primary);
+  --color-main-foreground: var(--primary-foreground);
+  --color-secondary-background: var(--card);
+  --radius-base: var(--radius-lg);
+  --shadow-shadow: 4px 4px 0 0 var(--border);
+  --spacing-boxShadowX: 4px;
+  --spacing-boxShadowY: 4px;
+  --spacing-reverseBoxShadowX: -4px;
+  --spacing-reverseBoxShadowY: -4px;
+  --font-weight-base: 500;
+  --font-weight-heading: 700;
+  --animate-line-shadow: line-shadow 20s linear infinite;
+  @keyframes line-shadow {
+  0% {
+    background-position: 0 0;
+    }
+  100% {
+    background-position: 100% -100%;
+    }
+  }
+}
+
+:root {
+  --background: #f5ece7;
+  --foreground: oklch(0% 0 0);
+  --card: #e4d6cd;
+  --card-foreground: oklch(0% 0 0);
+  --popover: #f5ece7;
+  --popover-foreground: oklch(0% 0 0);
+  --primary: #65a30d;
+  --primary-foreground: oklch(0% 0 0);
+  --secondary: #facc15;
+  --secondary-foreground: oklch(0% 0 0);
+  --muted: #e4d6cd;
+  --muted-foreground: oklch(35% 0 0);
+  --accent: var(--muted);
+  --accent-foreground: var(--foreground);
+  --destructive: oklch(70% 0.25 20);
+  --border: oklch(0% 0 0);
+  --input: oklch(0% 0 0);
+  --ring: oklch(0% 0 0);
+  --chart-1: #65a30d;
+  --chart-2: #facc15;
+  --chart-3: oklch(75% 0.25 250);
+  --chart-4: #e4d6cd;
+  --chart-5: oklch(0% 0 0);
+  --radius: 0.35rem;
+  --sidebar: #e4d6cd;
+  --sidebar-foreground: oklch(0% 0 0);
+  --sidebar-primary: #a3e635;
+  --sidebar-primary-foreground: oklch(0% 0 0);
+  --sidebar-accent: #facc15;
+  --sidebar-accent-foreground: oklch(0% 0 0);
+  --sidebar-border: oklch(0% 0 0);
+  --sidebar-ring: oklch(0% 0 0);
+
+  /* fumadocs color overrides — map to shadcn tokens above.
+     Defined once here; they resolve var(--token), which itself
+     switches in .dark, so both themes stay consistent. */
+  --color-fd-background: var(--background);
+  --color-fd-foreground: var(--foreground);
+  --color-fd-muted: var(--muted);
+  --color-fd-muted-foreground: var(--muted-foreground);
+  --color-fd-popover: var(--popover);
+  --color-fd-popover-foreground: var(--popover-foreground);
+  --color-fd-card: var(--card);
+  --color-fd-card-foreground: var(--card-foreground);
+  --color-fd-border: var(--border);
+  --color-fd-primary: var(--primary);
+  --color-fd-primary-foreground: var(--primary-foreground);
+  --color-fd-secondary: var(--secondary);
+  --color-fd-secondary-foreground: var(--secondary-foreground);
+  --color-fd-accent: var(--accent);
+  --color-fd-accent-foreground: var(--accent-foreground);
+  --color-fd-ring: var(--ring);
+}
+
+.dark {
+  --background: oklch(14% 0.01 30);
+  --foreground: oklch(95% 0 0);
+  --card: oklch(18% 0.01 30);
+  --card-foreground: oklch(95% 0 0);
+  --popover: oklch(18% 0.01 30);
+  --popover-foreground: oklch(95% 0 0);
+  --primary: #84cc16;
+  --primary-foreground: oklch(0% 0 0);
+  --secondary: #eab308;
+  --secondary-foreground: oklch(0% 0 0);
+  --muted: oklch(22% 0.01 30);
+  --muted-foreground: oklch(65% 0 0);
+  --accent: var(--muted);
+  --accent-foreground: var(--foreground);
+  --destructive: oklch(70% 0.25 20);
+  --border: oklch(40% 0 0);
+  --input: oklch(40% 0 0);
+  --ring: oklch(75% 0 0);
+  --chart-1: #84cc16;
+  --chart-2: #eab308;
+  --chart-3: oklch(70% 0.2 250);
+  --chart-4: oklch(22% 0.01 30);
+  --chart-5: oklch(95% 0 0);
+  --sidebar: oklch(18% 0.01 30);
+  --sidebar-foreground: oklch(95% 0 0);
+  --sidebar-primary: #84cc16;
+  --sidebar-primary-foreground: oklch(0% 0 0);
+  --sidebar-accent: oklch(22% 0.01 30);
+  --sidebar-accent-foreground: oklch(95% 0 0);
+  --sidebar-border: oklch(40% 0 0);
+  --sidebar-ring: oklch(75% 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+/* Active sidebar item — neobrutalist: solid primary bg, black text,
+   hard border + brutal shadow. ID selector beats fumadocs utilities. */
+#nd-sidebar a[data-active='true'] {
+  background-color: var(--primary);
+  color: #000;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: 3px 3px 0 0 var(--border);
+  /* room so the offset shadow isn't clipped by the next item / viewport edge */
+  margin-inline-end: 5px;
+  margin-bottom: 4px;
+}
+#nd-sidebar a[data-active='true']::before {
+  display: none;
+}
+
+/* Right sidebar (TOC) active section — primary lime is invisible as
+   foreground on the light cream bg. Use a darker lime + thicker bar. */
+#nd-toc a[data-active='true'] {
+  color: #65a30d;
+  font-weight: 600;
+}
+#nd-toc .bg-fd-primary {
+  width: 3px;
+  background-color: #65a30d;
+}
+/* dark: cream bg gone, bright lime reads better as accent text/bar */
+.dark #nd-toc a[data-active='true'] {
+  color: #a3e635;
+}
+.dark #nd-toc .bg-fd-primary {
+  background-color: #a3e635;
+}
+
+/* ── Docs content: neobrutalist props/tables/code ──────────────── */
+
+/* Code blocks — hard border + offset brutal shadow, sharp corners. */
+#nd-page figure.shiki {
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: 4px 4px 0 0 var(--border);
+}
+/* code block title/filename bar (only present when a title is set) */
+#nd-page figure.shiki > div.border-b {
+  background-color: var(--secondary);
+  color: #000;
+  border-bottom: 2px solid var(--border);
+  font-weight: 600;
+}
+
+/* Inline code — bordered chip. */
+#nd-page :not(pre) > code {
+  background-color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.1rem 0.35rem;
+  font-weight: 500;
+}
+
+/* Prop / reference tables — hard grid, loud header, zebra rows. */
+#nd-page table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+#nd-page th,
+#nd-page td {
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 0.6rem 0.9rem;
+  text-align: left;
+}
+#nd-page th:last-child,
+#nd-page td:last-child {
+  border-right: 0;
+}
+#nd-page tbody tr:last-child td {
+  border-bottom: 0;
+}
+#nd-page thead th {
+  background-color: var(--secondary);
+  color: #000;
+  font-weight: 700;
+  border-bottom: 2px solid var(--border);
+}
+#nd-page tbody tr:nth-child(even) {
+  background-color: var(--muted);
+}
+/* brutal shadow on the table's scroll wrapper (own shadow not clipped) */
+#nd-page div:has(> table) {
+  box-shadow: 4px 4px 0 0 var(--border);
+  margin-block: 1.5rem;
+}
+
+/* ── Landing page helpers (ported from old doc2 design) ───────────── */
+
+.font-outline {
+  font-family: 'Tourney', sans-serif;
+}
+
+/* hard flat offset shadow */
+.brutal-shadow {
+  --bs-offset: 0.25rem;
+  transition:
+    box-shadow 0.16s ease-in-out,
+    transform 0.16s ease-in-out;
+  box-shadow: var(--bs-offset) var(--bs-offset) 0 var(--tw-shadow-color, var(--border));
+}
+.brutal-text-shadow {
+  --bs-offset: 0.25rem;
+  text-shadow: var(--bs-offset) var(--bs-offset) 0 var(--tw-shadow-color, var(--border));
+}
+.brutal-shadow-sm {
+  --bs-offset: 0.15rem;
+}
+.brutal-shadow-lg {
+  --bs-offset: 0.75rem;
+}
+.brutal-shadow-hover {
+  --bs-offset: 0rem;
+}
+.brutal-shadow-hover:hover {
+  --bs-offset: 0.25rem;
+}
+
+/* text stroke outline */
+.text-outline {
+  --ts-size: 4px;
+  -webkit-text-stroke: var(--ts-size) var(--border);
+  text-stroke: var(--ts-size) var(--border);
+  paint-order: stroke fill;
+}
+.text-outline-sm {
+  --ts-size: 2px;
+}
+
+/* hero cross-hatch background */
+.cross-bg {
+  background:
+    linear-gradient(
+      to bottom,
+      var(--background),
+      transparent,
+      transparent,
+      var(--background)
+    ),
+    url('/hideout.svg');
+  background-repeat: repeat;
+  background-size: 80px;
+}
+
+/* hand-drawn underline (fill = primary) */
+.u-line {
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1418 125"><path d="M1412.29 72.17c-11.04-5.78-20.07-14.33-85.46-25.24-22.37-3.63-44.69-7.56-67.07-11.04-167.11-22.06-181.65-21.24-304.94-30.56C888.78 1.39 822.57 1.1 756.44 0c-46.63-.11-93.27 1.56-139.89 2.5C365.5 13.55 452.86 7.68 277.94 23.15 202.57 33.32 127.38 45.01 52.07 55.69c-11.23 2.41-22.63 4.17-33.71 7.22C6.1 66.33 5.64 66.19 3.89 67.79c-7.99 5.78-2.98 20.14 8.72 17.5 33.99-9.47 32.28-8.57 178.06-29.66 4.26 4.48 7.29 3.38 18.42 3.11 13.19-.32 26.38-.53 39.56-1.12 53.51-3.81 106.88-9.62 160.36-13.95 18.41-1.3 36.8-3.12 55.21-4.7 23.21-1.16 46.43-2.29 69.65-3.4 120.28-2.16 85.46-3.13 234.65-1.52 23.42.99 1.57-.18 125.72 6.9 96.61 8.88 200.92 27.94 295.42 46.12 40.87 7.91 116.67 23.2 156.31 36.78 3.81 1.05 8.28-.27 10.51-3.58 3.17-3.72 2.66-9.7-.78-13.13-3.25-3.12-8.14-3.44-12.18-5.08-17.89-5.85-44.19-12.09-63.67-16.56l26.16 3.28c23.02 3.13 46.28 3.92 69.34 6.75 10.8.96 25.43 1.81 34.34-4.39 2.26-1.54 4.86-2.75 6.21-5.27 2.76-4.59 1.13-11.06-3.59-13.68ZM925.4 23.77c37.64 1.4 153.99 10.85 196.64 14.94 45.95 5.51 91.89 11.03 137.76 17.19 24.25 4.77 74.13 11.21 101.72 18.14-11.87-1.15-23.77-1.97-35.65-3.06-133.46-15.9-266.8-33.02-400.47-47.21Z" fill="%2365a30d"></path></svg>')
+    no-repeat 0 100%;
+}

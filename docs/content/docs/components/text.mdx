@@ -1,0 +1,73 @@
+---
+title: Text
+description: Typography component with theme tokens and hard shadows
+---
+
+A typography component built on React Native's `Text`. It integrates with the
+theme's font and color tokens, supports hard offset shadows, and provides
+convenient spacing props.
+
+## Usage
+
+```tsx
+import { Text } from 'rn-neo';
+
+<Text>Basic text</Text>
+
+// Using theme tokens
+<Text color="primary" fontSize="xl" fontWeight="bold">
+  Bold Primary Heading
+</Text>
+
+// With shadow and alignment
+<Text align="center" shadow shadowColor="shadow" shadowSize="sm">
+  Centered text with shadow
+</Text>
+
+// Custom font family
+<Text fontFamily="SpaceMono-Regular">
+  Monospace content
+</Text>
+```
+
+## Behavior
+
+- Uses `textShadowOffset` with `textShadowRadius: 0` for the hard shadow look.
+- `color` accepts any theme color token (`primary`, `onBackground`, `surface`, …)
+  or a standard CSS color string.
+- `fontSize` and `fontWeight` map to values defined in your `NeoConfig`.
+- Spacing props position text blocks without extra wrapper views.
+
+## Props
+
+### Text
+
+| Prop    | Type                                           | Default        | Description                            |
+| :------ | :--------------------------------------------- | :------------- | :------------------------------------- |
+| `color` | `Colors \| string`                             | `onBackground` | Text color. Token or any color string. |
+| `align` | `'auto'\|'left'\|'right'\|'center'\|'justify'` | `'auto'`       | Text alignment. Maps to `textAlign`.   |
+
+### Font
+
+| Prop         | Type                             | Default    | Description                                                   |
+| :----------- | :------------------------------- | :--------- | :------------------------------------------------------------ |
+| `fontSize`   | `FontSize`                       | `'md'`     | Font size token.                                              |
+| `fontWeight` | `'normal' \| 'medium' \| 'bold'` | `'normal'` | Font weight token. Maps to the font family defined in config. |
+| `fontFamily` | `string`                         | —          | Custom font family string.                                    |
+
+### Shadow
+
+| Prop          | Type                   | Default    | Description                              |
+| :------------ | :--------------------- | :--------- | :--------------------------------------- |
+| `shadow`      | `boolean`              | `false`    | Whether to show a text shadow.           |
+| `shadowSize`  | `ShadowSize \| number` | From theme | Shadow offset size. Token or raw number. |
+| `shadowColor` | `Colors \| string`     | `'shadow'` | Shadow color. Token or any color string. |
+
+### Spacing
+
+<Callout>Accepts all standard spacing props (`padding*`, `margin*`). See
+[Box → Spacing](/docs/components/box#spacing) for the full list.</Callout>
+
+<Callout>Text also accepts all standard React Native `TextProps` —
+`numberOfLines`, `ellipsizeMode`, `onPress`, `selectable`, … The `style` prop is
+applied last and overrides token-based styles.</Callout>

@@ -1,0 +1,67 @@
+---
+title: Installation
+description: Install RN Neo package to your React Native project
+---
+
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+
+<Callout type="warn">From `v4` of `react-native-reanimated`, you must also
+install `react-native-worklets` as a peer dependency.</Callout>
+
+- Run the following commands in your project root directory:
+
+<Tabs defaultValue="pnpm">
+  <TabsList className="grid w-full grid-cols-4">
+    <TabsTrigger value="npm">npm</TabsTrigger>
+    <TabsTrigger value="yarn">yarn</TabsTrigger>
+    <TabsTrigger value="pnpm">pnpm</TabsTrigger>
+    <TabsTrigger value="expo">expo</TabsTrigger>
+  </TabsList>
+  <TabsContent value="npm">
+    ```bash
+    npm install rn-neo react-native-reanimated react-native-worklets
+    ```
+  </TabsContent>
+  <TabsContent value="yarn">
+    ```bash
+    yarn add rn-neo react-native-reanimated react-native-worklets
+    ```
+  </TabsContent>
+  <TabsContent value="pnpm">
+    ```bash
+    pnpm add rn-neo react-native-reanimated react-native-worklets
+    ```
+  </TabsContent>
+  <TabsContent value="expo">
+    ```bash
+    expo install rn-neo react-native-reanimated react-native-worklets
+    ```
+  </TabsContent>
+</Tabs>
+
+### Expo
+
+- If you are using Expo, you need to add the following to your `app.json` file:
+
+```json
+{
+  "expo": {
+    "plugins": [
+      // ...other plugins,
+      "rn-neo"
+    ]
+  }
+}
+```
+
+- Then run `expo prebuild` to generate the native code.
+
+### React Native CLI
+
+- If you are using React Native CLI project, you need to run the following command in your terminal:
+
+```bash
+npx react-native-asset
+```
+
+- This will link necessary assets for RN Neo theme.

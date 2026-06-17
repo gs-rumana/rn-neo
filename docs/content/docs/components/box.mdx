@@ -1,0 +1,106 @@
+---
+title: Box
+description: The foundational layout primitive in RN Neo
+---
+
+`Box` is the foundational layout component in `rn-neo`. It renders a React Native
+`View` with Neubrutalist styling — borders, hard offset shadows, background
+colors, and spacing — all driven by theme tokens.
+
+<Callout>Most other components in the library are built on top of `Box`, so its
+props (border, shadow, spacing) show up everywhere.</Callout>
+
+## Usage
+
+```tsx
+import { Box } from 'rn-neo';
+
+<Box backgroundColor="surface" padding="md">
+  {/* anything */}
+</Box>
+
+// With border and shadow
+<Box
+  backgroundColor="primary"
+  border
+  borderSize="thick"
+  shadow
+  shadowSize="lg"
+  padding="lg"
+/>
+
+// Custom radius and shadow color
+<Box
+  backgroundColor="surface"
+  border
+  shadow
+  shadowColor="primary"
+  radius="md"
+  paddingHorizontal="xl"
+  paddingVertical="md"
+/>
+```
+
+## Shadow
+
+Box uses a `box-shadow` with zero blur — the hard, flat offset that defines
+Neubrutalism. The shadow renders as:
+
+```
+{shadowSize}px {shadowSize}px 0 {shadowColor}
+```
+
+<Callout type="warn">Both `border` and `shadow` default to `false` on `Box`.
+Pass them explicitly, or set `border: true` / `shadow: true` on your theme to
+enable them globally.</Callout>
+
+## Props
+
+### Background
+
+| Prop              | Type                 | Default | Description                                                      |
+| :---------------- | :------------------- | :------ | :--------------------------------------------------------------- |
+| `backgroundColor` | `BgColors \| string` | —       | Background color. Accepts a theme token or any hex/color string. |
+
+### Border
+
+| Prop          | Type                   | Default    | Description                         |
+| :------------ | :--------------------- | :--------- | :---------------------------------- |
+| `border`      | `boolean`              | `false`    | Whether to show a border.           |
+| `borderSize`  | `BorderSize \| number` | From theme | Border width. Token or raw number.  |
+| `borderColor` | `Colors \| string`     | From theme | Border color.                       |
+| `radius`      | `Radius \| number`     | From theme | Border radius. Token or raw number. |
+
+### Shadow
+
+| Prop          | Type                   | Default    | Description                               |
+| :------------ | :--------------------- | :--------- | :---------------------------------------- |
+| `shadow`      | `boolean`              | `false`    | Whether to show a shadow.                 |
+| `shadowSize`  | `ShadowSize \| number` | From theme | Shadow offset in px. Token or raw number. |
+| `shadowColor` | `Colors \| string`     | From theme | Shadow color.                             |
+
+### Spacing
+
+Every `padding*` and `margin*` prop accepts a `Spacing` token or a raw `number`.
+This is the canonical spacing reference — other components link here.
+
+| Prop                | Type                | Description                  |
+| :------------------ | :------------------ | :--------------------------- |
+| `padding`           | `Spacing \| number` | All sides.                   |
+| `paddingVertical`   | `Spacing \| number` | Top + bottom.                |
+| `paddingHorizontal` | `Spacing \| number` | Left + right.                |
+| `paddingTop`        | `Spacing \| number` | Single side.                 |
+| `paddingBottom`     | `Spacing \| number` | Single side.                 |
+| `paddingLeft`       | `Spacing \| number` | Single side.                 |
+| `paddingRight`      | `Spacing \| number` | Single side.                 |
+| `margin`            | `Spacing \| number` | All sides.                   |
+| `marginVertical`    | `Spacing \| number` | Top + bottom.                |
+| `marginHorizontal`  | `Spacing \| number` | Left + right.                |
+| `marginTop`         | `Spacing \| number` | Single side.                 |
+| `marginBottom`      | `Spacing \| number` | Single side.                 |
+| `marginLeft`        | `Spacing \| number` | Single side.                 |
+| `marginRight`       | `Spacing \| number` | Single side.                 |
+
+<Callout>Box also accepts all standard React Native `ViewProps` (`style`,
+`testID`, `accessible`, …). The `style` prop is applied last, so it overrides
+any token-based style.</Callout>
