@@ -1,0 +1,92 @@
+---
+title: Badge
+description: Small label for statuses, tags, and counts
+---
+
+A small label component for status indicators, tags, and counts. Defaults to a
+pill shape with a primary background, and automatically picks a readable text
+color based on the background.
+
+## Usage
+
+```tsx
+import { Badge } from 'rn-neo';
+
+// Plain text — no need to wrap in a Text component
+<Badge>New</Badge>
+
+// With a number
+<Badge>4</Badge>
+
+// Custom size and color
+<Badge size="sm" backgroundColor="success">Active</Badge>
+
+// Custom children
+<Badge>
+  <Icon name="star" size={12} />
+</Badge>
+```
+
+<Callout>If `children` is a string or number, Badge wraps it in the internal
+`Text` and picks the contrast color automatically via `resolveColorFromBG` — you
+never think about contrast. Any other child renders as-is, unwrapped.</Callout>
+
+## Size
+
+`size` controls padding and font size together. Default is `md`. Override padding
+directly with `paddingHorizontal` / `paddingVertical` if a preset doesn't fit.
+
+| Size | Padding H   | Padding V  | Font Size   |
+| :--- | :---------- | :--------- | :---------- |
+| `sm` | `sm` (4px)  | `xs` (2px) | `sm` (12px) |
+| `md` | `md` (8px)  | `sm` (4px) | `md` (14px) |
+| `lg` | `lg` (12px) | `md` (8px) | `lg` (16px) |
+
+## Props
+
+### Badge
+
+| Prop        | Type                   | Default | Description                                                                  |
+| :---------- | :--------------------- | :------ | :--------------------------------------------------------------------------- |
+| `size`      | `'sm' \| 'md' \| 'lg'` | `'md'`  | Controls padding and font size together.                                     |
+| `textStyle` | `TextStyle`            | —       | Style applied to the auto-rendered Text when children is a string or number. |
+
+### Font
+
+| Prop         | Type                             | Default                | Description                                            |
+| :----------- | :------------------------------- | :--------------------- | :----------------------------------------------------- |
+| `textColor`  | `Colors \| string`               | Auto (from background) | Text color. Resolved from background token if not set. |
+| `fontSize`   | `FontSize`                       | From `size`            | Overrides the font size from the size preset.          |
+| `fontWeight` | `'normal' \| 'medium' \| 'bold'` | —                      | Font weight token.                                     |
+| `fontFamily` | `string`                         | —                      | Custom font family string.                             |
+
+### Background
+
+| Prop              | Type                 | Default     | Description                                |
+| :---------------- | :------------------- | :---------- | :----------------------------------------- |
+| `backgroundColor` | `BgColors \| string` | `'primary'` | Background color. Theme token or any color string. |
+
+### Border
+
+| Prop          | Type                   | Default    | Description                                                 |
+| :------------ | :--------------------- | :--------- | :---------------------------------------------------------- |
+| `border`      | `boolean`              | From theme | Whether to show a border.                                   |
+| `borderSize`  | `BorderSize \| number` | From theme | Border width. Token or raw number.                          |
+| `borderColor` | `Colors \| string`     | From theme | Border color.                                               |
+| `radius`      | `Radius \| number`     | `'full'`   | Border radius. Defaults to a pill shape.                    |
+
+### Shadow
+
+| Prop          | Type                   | Default    | Description                              |
+| :------------ | :--------------------- | :--------- | :--------------------------------------- |
+| `shadow`      | `boolean`              | From theme | Whether to show a shadow.                |
+| `shadowSize`  | `ShadowSize \| number` | From theme | Shadow offset size. Token or raw number. |
+| `shadowColor` | `Colors \| string`     | From theme | Shadow color.                            |
+
+### Spacing
+
+<Callout>Accepts all standard spacing props (`padding*`, `margin*`). See
+[Box → Spacing](/docs/components/box#spacing) for the full list.</Callout>
+
+<Callout>Badge also accepts all standard React Native `ViewProps` (`style`,
+`testID`, `accessible`, …).</Callout>

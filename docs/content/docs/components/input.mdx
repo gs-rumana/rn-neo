@@ -1,0 +1,77 @@
+---
+title: Input
+description: Text input with focus depth and theme-aware colors
+---
+
+A styled text input built on React Native's `TextInput`. It animates shadow
+depth on focus and applies theme-consistent placeholder and selection colors.
+
+## Usage
+
+```tsx
+import { Input } from 'rn-neo';
+
+<Input placeholder="Enter your name" />
+
+// With border and shadow
+<Input placeholder="Email" border shadow backgroundColor="surface" padding="lg" />
+
+// Custom focus shadow color
+<Input placeholder="Search" border shadow shadowColor="primary" radius="md" />
+```
+
+## Behavior
+
+- On focus, the shadow offset multiplier goes from `1×` to `2×` the resolved
+  `shadowSize` — a subtle depth change signalling the active state.
+- `placeholderTextColor` defaults to the `muted` token; `selectionColor`
+  defaults to `primary`. Pass either explicitly to override.
+- Your `onFocus` / `onBlur` handlers run alongside the internal focus tracking —
+  they are not replaced.
+
+<Callout>`padding` defaults to `'md'` if not set.</Callout>
+
+## Props
+
+### Font
+
+| Prop         | Type                             | Default    | Description                |
+| :----------- | :------------------------------- | :--------- | :------------------------- |
+| `textColor`  | `Colors \| string`               | From theme | Text color.                |
+| `fontSize`   | `FontSize`                       | —          | Font size token.           |
+| `fontWeight` | `'normal' \| 'medium' \| 'bold'` | —          | Font weight token.         |
+| `fontFamily` | `string`                         | —          | Custom font family string. |
+
+### Background
+
+| Prop              | Type                 | Default | Description                                  |
+| :---------------- | :------------------- | :------ | :------------------------------------------- |
+| `backgroundColor` | `BgColors \| string` | —       | Background color. Token or any color string. |
+
+### Border
+
+| Prop          | Type                   | Default    | Description                         |
+| :------------ | :--------------------- | :--------- | :---------------------------------- |
+| `border`      | `boolean`              | From theme | Whether to show a border.           |
+| `borderSize`  | `BorderSize \| number` | From theme | Border width. Token or raw number.  |
+| `borderColor` | `Colors \| string`     | From theme | Border color.                       |
+| `radius`      | `Radius \| number`     | From theme | Border radius. Token or raw number. |
+
+### Shadow
+
+| Prop          | Type                   | Default    | Description                           |
+| :------------ | :--------------------- | :--------- | :------------------------------------ |
+| `shadow`      | `boolean`              | From theme | Whether to show a shadow.             |
+| `shadowSize`  | `ShadowSize \| number` | From theme | Shadow offset size. Doubles on focus. |
+| `shadowColor` | `Colors \| string`     | From theme | Shadow color.                         |
+
+### Spacing
+
+<Callout>Accepts all standard spacing props (`padding*`, `margin*`); `padding`
+defaults to `'md'`. See [Box → Spacing](/docs/components/box#spacing) for the
+full list.</Callout>
+
+<Callout>Input also accepts all standard React Native `TextInputProps` —
+`value`, `onChangeText`, `multiline`, `keyboardType`, `secureTextEntry`,
+`placeholderTextColor`, `selectionColor`, … The `style` prop is applied last and
+overrides token-based styles.</Callout>

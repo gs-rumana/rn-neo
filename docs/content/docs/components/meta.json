@@ -1,0 +1,6 @@
+{
+  "title": "Components",
+  "collapsible": false,
+  "defaultOpen": true,
+  "pages": ["box", "text", "card", "badge", "pressable", "input", "checkbox", "radio", "switch"]
+}

@@ -1,0 +1,35 @@
+---
+title: Card
+description: A Box preset for content containers
+---
+
+A `Box` with opinionated defaults for building content containers. Border and
+shadow are enabled out of the box, with a `surface` background and `md`
+padding — so it looks right with zero props.
+
+## Usage
+
+```tsx
+import { Card } from 'rn-neo';
+
+<Card>
+  <Text>Hello</Text>
+</Card>
+
+// Override defaults
+<Card backgroundColor="primary" shadow={false} padding="xl">
+  <Text>Custom card</Text>
+</Card>
+```
+
+## Defaults
+
+| Prop              | Default     |
+| :---------------- | :---------- |
+| `backgroundColor` | `'surface'` |
+| `border`          | `true`      |
+| `shadow`          | `true`      |
+| `padding`         | `'md'`      |
+
+<Callout>Everything else follows the theme. Card accepts **all** `Box` props —
+see the [Box](/docs/components/box) page for the full prop reference.</Callout>

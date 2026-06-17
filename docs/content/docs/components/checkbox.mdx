@@ -1,0 +1,89 @@
+---
+title: Checkbox
+description: Toggleable checkbox with a press animation
+---
+
+A toggleable checkbox with a press animation and a built-in checkmark. Supports
+a disabled state, custom sizes, and separate colors for checked / unchecked
+states.
+
+## Usage
+
+```tsx
+import { Checkbox } from 'rn-neo';
+import { useState } from 'react';
+
+const [checked, setChecked] = useState(false);
+
+<Checkbox checked={checked} onChange={setChecked} />
+
+// With size and custom colors
+<Checkbox
+  checked={checked}
+  onChange={setChecked}
+  size="lg"
+  backgroundColor={{ true: 'secondary', false: 'surface' }}
+  checkColor={{ true: 'onSecondary', false: 'transparent' }}
+/>
+
+// Disabled
+<Checkbox checked={checked} onChange={setChecked} disabled />
+```
+
+## Behavior
+
+- Pressing calls `onChange` with the toggled value.
+- On press it shifts on both axes to simulate the shadow being pushed in.
+- When `disabled`, it renders at reduced opacity and ignores interactions.
+- The checkmark uses the internal `NeoIcons` font, sized at 70% of the container.
+- Color / shadow / transform transitions animate when `animation` is enabled.
+
+## Size
+
+`size` controls the width and height of the container; the checkmark scales with it.
+
+| Size | Dimensions |
+| :--- | :--------- |
+| `sm` | 18 × 18    |
+| `md` | 22 × 22    |
+| `lg` | 28 × 28    |
+
+## Props
+
+### Checkbox
+
+| Prop              | Type                                            | Default                                       | Description                                       |
+| :---------------- | :---------------------------------------------- | :-------------------------------------------- | :------------------------------------------------ |
+| `checked`         | `boolean`                                       | **Required**                                  | Current checked state.                            |
+| `onChange`        | `(checked: boolean) => void`                    | **Required**                                  | Called with the new value on press.               |
+| `disabled`        | `boolean`                                       | —                                             | Disables interaction and reduces opacity.         |
+| `size`            | `'sm' \| 'md' \| 'lg'`                          | `'md'`                                        | Controls the dimensions of the checkbox.          |
+| `backgroundColor` | `Record<'true' \| 'false', BgColors \| string>` | `{ true: 'primary', false: 'surface' }`       | Background color for each state.                  |
+| `checkColor`      | `Record<'true' \| 'false', Colors \| string>`   | `{ true: 'onPrimary', false: 'transparent' }` | Checkmark color for each state.                   |
+
+### Border
+
+| Prop          | Type                   | Default    | Description                         |
+| :------------ | :--------------------- | :--------- | :---------------------------------- |
+| `border`      | `boolean`              | From theme | Whether to show a border.           |
+| `borderSize`  | `BorderSize \| number` | From theme | Border width. Token or raw number.  |
+| `borderColor` | `Colors \| string`     | From theme | Border color.                       |
+| `radius`      | `Radius \| number`     | From theme | Border radius. Token or raw number. |
+
+### Shadow
+
+| Prop          | Type                   | Default    | Description                              |
+| :------------ | :--------------------- | :--------- | :--------------------------------------- |
+| `shadow`      | `boolean`              | From theme | Whether to show a shadow.                |
+| `shadowSize`  | `ShadowSize \| number` | From theme | Shadow offset size. Token or raw number. |
+| `shadowColor` | `Colors \| string`     | From theme | Shadow color.                            |
+
+### Spacing
+
+<Callout>Accepts all standard spacing props (`padding*`, `margin*`). See
+[Box → Spacing](/docs/components/box#spacing) for the full list.</Callout>
+
+## Accessibility
+
+Checkbox sets `accessibilityRole="checkbox"` and passes `checked` and `disabled`
+to `accessibilityState` automatically.

@@ -1,0 +1,32 @@
+---
+title: Usage
+description: Usage of RN Neo package in your React Native project
+---
+
+<Callout>After installing RN Neo and its peer dependencies, you can start using
+it in your project.</Callout>
+
+- Wrap your root component in `NeoProvider` from `rn-neo`. Do this in your
+  `App.js` file:
+
+```tsx
+import { NeoProvider } from 'rn-neo';
+
+export default function App() {
+  return <NeoProvider>{/* Your app code */}</NeoProvider>;
+}
+```
+
+- Import the components
+
+```tsx
+import { Pressable, Text } from 'rn-neo';
+```
+
+- And use it in your app
+
+```tsx
+<Pressable backgroundColor="primary">
+  <Text>Sign Up</Text>
+</Pressable>
+```

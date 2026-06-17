@@ -1,0 +1,112 @@
+---
+title: Pressable
+description: Touchable container with a physical press animation
+---
+
+A touchable container with a physical press animation. On press it shifts along
+both axes to simulate the shadow being pushed in — the core interaction of
+Neubrutalism. Supports a loading state that disables interaction while staying
+visible.
+
+## Usage
+
+```tsx
+import { Pressable, Text } from 'rn-neo';
+
+<Pressable onPress={() => console.log('pressed')}>
+  <Text>Click me</Text>
+</Pressable>
+
+// With border and shadow
+<Pressable border shadow shadowColor="shadow" onPress={handleSubmit}>
+  <Text>Submit</Text>
+</Pressable>
+
+// Loading state
+<Pressable loading={isSubmitting} onPress={handleSubmit}>
+  <Text>Submit</Text>
+</Pressable>
+
+// Custom appearance
+<Pressable
+  backgroundColor="secondary"
+  border
+  shadow
+  radius="md"
+  padding="lg"
+  onPress={handlePress}
+>
+  <Text>Secondary action</Text>
+</Pressable>
+```
+
+## Behavior
+
+- On `pressIn`, it shifts by half the resolved `shadowSize` on both axes and the
+  shadow offset doubles — simulating a physical push. On `pressOut` it returns.
+- The press animation only fires when `animation` is enabled in the theme and
+  the component is neither `disabled` nor `loading`.
+- When `loading` is `true`, the component is disabled and ignores all
+  interactions. `disabled` and `loading` set the matching accessibility states.
+- Your `onPressIn` / `onPressOut` handlers run alongside the internal tracking —
+  they are not replaced.
+
+<Callout>Defaults that differ from `Box`: `padding` is `'md'`,
+`backgroundColor` is `'primary'`, and `accessibilityRole` is `'button'`. Font
+props (`textColor`, `fontSize`, `fontWeight`, `fontFamily`) cascade into any
+`Text` children.</Callout>
+
+## Props
+
+### Pressable
+
+| Prop      | Type      | Default | Description                                                |
+| :-------- | :-------- | :------ | :--------------------------------------------------------- |
+| `loading` | `boolean` | —       | Disables the component and sets `accessibilityState.busy`. |
+
+### Font
+
+| Prop         | Type                             | Default | Description                      |
+| :----------- | :------------------------------- | :------ | :------------------------------- |
+| `textColor`  | `Colors \| string`               | —       | Text color cascaded to children. |
+| `fontSize`   | `FontSize`                       | —       | Font size token.                 |
+| `fontWeight` | `'normal' \| 'medium' \| 'bold'` | —       | Font weight token.               |
+| `fontFamily` | `string`                         | —       | Custom font family string.       |
+
+### Background
+
+| Prop              | Type                 | Default     | Description                                  |
+| :---------------- | :------------------- | :---------- | :------------------------------------------- |
+| `backgroundColor` | `BgColors \| string` | `'primary'` | Background color. Token or any color string. |
+
+### Border
+
+| Prop          | Type                   | Default    | Description                         |
+| :------------ | :--------------------- | :--------- | :---------------------------------- |
+| `border`      | `boolean`              | From theme | Whether to show a border.           |
+| `borderSize`  | `BorderSize \| number` | From theme | Border width. Token or raw number.  |
+| `borderColor` | `Colors \| string`     | From theme | Border color.                       |
+| `radius`      | `Radius \| number`     | From theme | Border radius. Token or raw number. |
+
+### Shadow
+
+| Prop          | Type                   | Default    | Description                                      |
+| :------------ | :--------------------- | :--------- | :----------------------------------------------- |
+| `shadow`      | `boolean`              | From theme | Whether to show a shadow.                        |
+| `shadowSize`  | `ShadowSize \| number` | From theme | Shadow offset size. Doubles and shifts on press. |
+| `shadowColor` | `Colors \| string`     | From theme | Shadow color.                                    |
+
+### Spacing
+
+<Callout>Accepts all standard spacing props (`padding*`, `margin*`); `padding`
+defaults to `'md'`. See [Box → Spacing](/docs/components/box#spacing) for the
+full list.</Callout>
+
+<Callout>Pressable also accepts all standard React Native `PressableProps` —
+`onPress`, `onLongPress`, `hitSlop`, `accessibilityLabel`, … The `style` prop is
+applied last and overrides token-based styles.</Callout>
+
+## Accessibility
+
+Pressable sets `accessibilityRole="button"` by default and passes `disabled` and
+`busy` (from `loading`) to `accessibilityState` automatically.
