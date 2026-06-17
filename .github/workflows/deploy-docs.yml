@@ -40,7 +40,7 @@ jobs:
           cd docs
           yarn install --immutable
 
-      - name: Build with Astro
+      - name: Build docs
         run: |
           cd docs
           yarn build
@@ -48,7 +48,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: docs/dist
+          path: docs/build/client
 
   deploy:
     name: Deploy to GitHub Pages
