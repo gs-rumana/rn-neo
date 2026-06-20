@@ -6,7 +6,6 @@ export const siteDescription =
 export const ogImage = `${siteUrl}/rn-neo-cover.png`;
 export const docsRoute = '/docs';
 export const docsImageRoute = '/og/docs';
-export const docsContentRoute = '/llms.mdx/docs';
 
 export const gitConfig = {
   user: 'gs-rumana',
