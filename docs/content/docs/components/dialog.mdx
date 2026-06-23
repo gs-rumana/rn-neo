@@ -1,0 +1,97 @@
+---
+title: Dialog
+description: Modal dialog with a neobrutalist surface
+---
+
+A controlled modal built on React Native's `Modal`. It centers its content in a
+`Box` surface over a dimmed backdrop, so the dialog inherits the full
+neobrutalist treatment — border, hard shadow, `surface` background and `xl`
+padding — with zero props. Pass `title`, `children` and an optional `footer` to
+lay out the contents.
+
+## Usage
+
+```tsx
+import { Dialog, Pressable, Text } from 'rn-neo';
+import { useState } from 'react';
+
+const [visible, setVisible] = useState(false);
+
+<Pressable onPress={() => setVisible(true)}>
+  <Text color="onPrimary" fontWeight="bold">Open</Text>
+</Pressable>
+
+<Dialog
+  visible={visible}
+  onClose={() => setVisible(false)}
+  title="Delete item?"
+  footer={
+    <>
+      <Pressable backgroundColor="surface" onPress={() => setVisible(false)}>
+        <Text fontWeight="bold">Cancel</Text>
+      </Pressable>
+      <Pressable backgroundColor="error" onPress={() => setVisible(false)}>
+        <Text color="onError" fontWeight="bold">Delete</Text>
+      </Pressable>
+    </>
+  }
+>
+  <Text color="muted">This action can't be undone.</Text>
+</Dialog>
+```
+
+## Behavior
+
+- Fully controlled — `visible` drives mount/unmount, `onClose` is the single
+  close signal.
+- The backdrop calls `onClose` on press when `dismissable` (default `true`). Set
+  `dismissable={false}` to force closing via your own controls.
+- On Android the hardware back button also calls `onClose` (`onRequestClose`).
+- `title` renders as bold `xl` text; `footer` lays out in a right-aligned row
+  with spacing — ideal for action buttons.
+- The surface is a `Box`, so `Dialog` accepts **all** `Box` props
+  (`backgroundColor`, `border`, `shadow`, `radius`, `padding`, …) to restyle it.
+- The surface is `100%` wide capped at `420px`, centered with `24px` screen padding.
+
+## Defaults
+
+| Prop              | Default              |
+| :---------------- | :------------------- |
+| `backgroundColor` | `'surface'`          |
+| `border`          | `true`               |
+| `shadow`          | `true`               |
+| `padding`         | `'xl'`               |
+| `dismissable`     | `true`               |
+| `backdropColor`   | `'rgba(0,0,0,0.5)'`  |
+| `animationType`   | `'fade'`             |
+| `titleColor`      | `'onSurface'`        |
+
+## Props
+
+### Dialog
+
+| Prop             | Type                              | Default             | Description                                            |
+| :--------------- | :-------------------------------- | :------------------ | :----------------------------------------------------- |
+| `visible`        | `boolean`                         | **Required**        | Controls visibility.                                   |
+| `onClose`        | `() => void`                      | **Required**        | Called on backdrop press or Android back.              |
+| `title`          | `string`                          | —                   | Optional bold heading at the top.                      |
+| `titleColor`     | `Colors \| string`                | `'onSurface'`       | Title text color.                                      |
+| `footer`         | `ReactNode`                       | —                   | Content below the body, in a right-aligned row.        |
+| `children`       | `ReactNode`                       | —                   | Dialog body.                                           |
+| `dismissable`    | `boolean`                         | `true`              | Whether backdrop press closes the dialog.              |
+| `backdropColor`  | `string`                          | `'rgba(0,0,0,0.5)'` | Overlay color behind the surface.                      |
+| `animationType`  | `'none' \| 'fade' \| 'slide'`     | `'fade'`            | Mount/unmount transition.                              |
+| `containerStyle` | `StyleProp<ViewStyle>`            | —                   | Style for the centering container around the surface.  |
+
+### Box props
+
+<Callout>Internally the dialog renders its content inside a `Box`, so `Dialog`
+also accepts **all** `Box` props — `backgroundColor`, `border`, `borderColor`,
+`borderSize`, `radius`, `shadow`, `shadowSize`, `shadowColor`, `padding*` — plus
+`style`. They style the dialog surface. See the [Box](/docs/components/box) page
+for the full reference.</Callout>
+
+## Accessibility
+
+The surface sets `accessibilityViewIsModal`. The backdrop is a labeled button
+("Close dialog") when `dismissable`, and is hidden from assistive tech otherwise.

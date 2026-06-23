@@ -4,6 +4,7 @@ import {
   DefaultLightTheme,
   DefaultDarkTheme,
   Card,
+  Dialog,
   Text,
   Badge,
   Pressable,
@@ -43,6 +44,8 @@ function Showcase() {
   const [radioValue, setRadioValue] = useState<'a' | 'b' | 'c'>('a');
   const [switchValue, setSwitchValue] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const [dialogVisible, setDialogVisible] = useState(false);
+  const [plainDialogVisible, setPlainDialogVisible] = useState(false);
 
   return (
     <ScrollView style={styles.scroll} contentContainerStyle={styles.container}>
@@ -65,6 +68,83 @@ function Showcase() {
             Primary background with large shadow
           </Text>
         </Card>
+      </Section>
+
+      {/* ── Dialog ── */}
+      <Section title="Dialog">
+        <Pressable border shadow onPress={() => setDialogVisible(true)}>
+          <Text color="onPrimary" fontWeight="bold" align="center">
+            Open Dialog
+          </Text>
+        </Pressable>
+
+        <Pressable
+          backgroundColor="secondary"
+          border
+          shadow
+          onPress={() => setPlainDialogVisible(true)}
+        >
+          <Text color="onSecondary" fontWeight="bold" align="center">
+            Non-dismissable Dialog
+          </Text>
+        </Pressable>
+
+        <Dialog
+          visible={dialogVisible}
+          onClose={() => setDialogVisible(false)}
+          title="Delete item?"
+          footer={
+            <>
+              <Pressable
+                backgroundColor="surface"
+                border
+                shadow
+                onPress={() => setDialogVisible(false)}
+              >
+                <Text fontWeight="bold">Cancel</Text>
+              </Pressable>
+              <Pressable
+                backgroundColor="error"
+                border
+                shadow
+                onPress={() => setDialogVisible(false)}
+              >
+                <Text color="onError" fontWeight="bold">
+                  Delete
+                </Text>
+              </Pressable>
+            </>
+          }
+        >
+          <Text color="muted">
+            This action can't be undone. Tap the backdrop or Cancel to dismiss.
+          </Text>
+        </Dialog>
+
+        <Dialog
+          visible={plainDialogVisible}
+          onClose={() => setPlainDialogVisible(false)}
+          dismissable={false}
+          title="Heads up"
+          backgroundColor="primary"
+          radius="md"
+          shadowSize="lg"
+          titleColor="onPrimary"
+          footer={
+            <Pressable
+              backgroundColor="surface"
+              border
+              shadow
+              onPress={() => setPlainDialogVisible(false)}
+            >
+              <Text fontWeight="bold">Got it</Text>
+            </Pressable>
+          }
+        >
+          <Text color="onPrimary">
+            Backdrop press is disabled — use the button to close.
+          </Text>
+        </Dialog>
       </Section>
 
       {/* ── Text ── */}
