@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.4.0] - 2026-06-26
+
+### Added
+
+- **Dialog Component:** Controlled modal built on React Native's `Modal`. Centers a `Box` surface over a dimmed backdrop, inheriting the neobrutalist treatment (border, hard shadow, `surface` background, padding). Supports `title`, `footer`, `dismissable` backdrop, custom `backdropColor`, and `animationType`, and forwards all `Box` props to style the surface.
+
+---
+
 ## [0.3.0] - 2026-05-16
 
 ### Added
