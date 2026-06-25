@@ -2,5 +2,5 @@
   "title": "Components",
   "collapsible": false,
   "defaultOpen": true,
-  "pages": ["box", "text", "card", "badge", "pressable", "input", "checkbox", "radio", "switch"]
+  "pages": ["box", "text", "card", "dialog", "badge", "pressable", "input", "checkbox", "radio", "switch"]
 }
