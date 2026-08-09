@@ -14,14 +14,22 @@ import {
   Switch,
 } from 'rn-neo';
 import { useState } from 'react';
-import { getLoadedFonts } from 'expo-font';
+import { useFonts } from 'expo-font';
 
 export default function App() {
   const scheme = useColorScheme();
   const theme = scheme === 'dark' ? DefaultDarkTheme : DefaultLightTheme;
 
-  const fonts = getLoadedFonts();
-  console.log(fonts);
+  const [fontsLoaded] = useFonts({
+    'SpaceGrotesk-Bold': require('../assets/fonts/SpaceGrotesk-Bold.ttf'),
+    'SpaceGrotesk-Medium': require('../assets/fonts/SpaceGrotesk-Medium.ttf'),
+    'SpaceGrotesk-Regular': require('../assets/fonts/SpaceGrotesk-Regular.ttf'),
+    'NeoIcons': require('rn-neo/assets/fonts/NeoIcons.ttf'),
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
     <NeoProvider
@@ -34,7 +42,9 @@ export default function App() {
         },
       }}
     >
-      <Showcase />
+      <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
+        <Showcase />
+      </View>
     </NeoProvider>
   );
 }
