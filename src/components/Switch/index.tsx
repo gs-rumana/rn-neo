@@ -46,7 +46,23 @@ const Switch = memo(function Switch({
   shadowColor,
   shadowSize,
 
-  ...spacingProps
+  padding: paddingProp,
+  paddingBottom,
+  paddingHorizontal,
+  paddingLeft,
+  paddingRight,
+  paddingTop,
+  paddingVertical,
+
+  margin,
+  marginBottom,
+  marginHorizontal,
+  marginLeft,
+  marginRight,
+  marginTop,
+  marginVertical,
+
+  ...props
 }: SwitchProps) {
   const { theme } = useNeo();
 
@@ -89,21 +105,34 @@ const Switch = memo(function Switch({
     typeof borderStyles.borderWidth === 'number' ? borderStyles.borderWidth : 0;
 
   const thumbSize = dimensions.height * 0.6;
-  const padding =
+  const internalPadding =
     (dimensions.height - thumbSize - resolvedBorderSize * 2) * 0.5;
   const maxTranslateX =
-    dimensions.width - resolvedBorderSize * 2 - padding * 2 - thumbSize;
+    dimensions.width - resolvedBorderSize * 2 - internalPadding * 2 - thumbSize;
   const translateX = value ? maxTranslateX : 0;
 
   const containerRadius =
     typeof borderStyles.borderRadius === 'number'
       ? borderStyles.borderRadius
       : 0;
-  const thumbRadius = Math.max(0, containerRadius - padding);
+  const thumbRadius = Math.max(0, containerRadius - internalPadding);
 
   const spacingStyles = useSpacingStyles({
-    padding,
-    ...spacingProps,
+    padding: paddingProp ?? internalPadding,
+    paddingBottom,
+    paddingHorizontal,
+    paddingLeft,
+    paddingRight,
+    paddingTop,
+    paddingVertical,
+
+    margin,
+    marginBottom,
+    marginHorizontal,
+    marginLeft,
+    marginRight,
+    marginTop,
+    marginVertical,
   });
 
   const containerStyles = useMemo<ViewStyle>(
@@ -159,6 +188,7 @@ const Switch = memo(function Switch({
         backgroundStyles,
         style,
       ]}
+      {...props}
     >
       <Animated.View style={[styles.thumb, thumbStyles]} />
     </AnimatedPressable>

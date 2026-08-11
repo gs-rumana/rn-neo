@@ -21,7 +21,14 @@ import type {
 
 export type ComponentSize = 'sm' | 'md' | 'lg';
 
-interface ToggleComponentProps extends BorderProps, ShadowProps, SpacingProps {
+interface ToggleComponentProps
+  extends Omit<
+      RNPressableProps,
+      'style' | 'disabled' | 'children' | 'onPress'
+    >,
+    BorderProps,
+    ShadowProps,
+    SpacingProps {
   backgroundColor?: Record<'true' | 'false', BgColors & string>;
 }
 

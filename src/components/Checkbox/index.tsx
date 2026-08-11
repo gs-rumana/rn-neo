@@ -41,15 +41,44 @@ const Checkbox = memo(function Checkbox({
 
   style,
 
-  ...spacingProps
+  padding,
+  paddingBottom,
+  paddingHorizontal,
+  paddingLeft,
+  paddingRight,
+  paddingTop,
+  paddingVertical,
+
+  margin,
+  marginBottom,
+  marginHorizontal,
+  marginLeft,
+  marginRight,
+  marginTop,
+  marginVertical,
+
+  ...props
 }: CheckboxProps & { style?: ViewStyle }) {
   const { theme } = useNeo();
 
   const [pressed, setPressed] = useState(false);
 
   const spacingStyles = useSpacingStyles({
-    padding: 0,
-    ...spacingProps,
+    padding: padding ?? 0,
+    paddingBottom,
+    paddingHorizontal,
+    paddingLeft,
+    paddingRight,
+    paddingTop,
+    paddingVertical,
+
+    margin,
+    marginBottom,
+    marginHorizontal,
+    marginLeft,
+    marginRight,
+    marginTop,
+    marginVertical,
   });
 
   const borderStyles = useBorderStyles({
@@ -160,6 +189,7 @@ const Checkbox = memo(function Checkbox({
         checked,
         disabled,
       }}
+      {...props}
     >
       {checked ? <Text style={indicatorStyle}>{'\uf000'}</Text> : null}
     </AnimatedPressable>

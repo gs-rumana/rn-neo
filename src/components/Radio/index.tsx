@@ -50,13 +50,42 @@ const Radio = memo(function Radio({
 
   style,
 
-  ...spacingProps
+  padding,
+  paddingBottom,
+  paddingHorizontal,
+  paddingLeft,
+  paddingRight,
+  paddingTop,
+  paddingVertical,
+
+  margin,
+  marginBottom,
+  marginHorizontal,
+  marginLeft,
+  marginRight,
+  marginTop,
+  marginVertical,
+
+  ...props
 }: RadioProps & { style?: ViewStyle }) {
   const { theme } = useNeo();
 
   const spacingStyles = useSpacingStyles({
-    padding: spacingProps.padding ?? SIZE_MAP[size].padding,
-    ...spacingProps,
+    padding: padding ?? SIZE_MAP[size].padding,
+    paddingBottom,
+    paddingHorizontal,
+    paddingLeft,
+    paddingRight,
+    paddingTop,
+    paddingVertical,
+
+    margin,
+    marginBottom,
+    marginHorizontal,
+    marginLeft,
+    marginRight,
+    marginTop,
+    marginVertical,
   });
 
   const borderStyles = useBorderStyles({
@@ -152,8 +181,9 @@ const Radio = memo(function Radio({
       accessibilityRole="radio"
       accessibilityState={{
         disabled,
-        selected,
+        checked: selected,
       }}
+      {...props}
     >
       <View style={innerStyle} />
     </AnimatedPressable>
