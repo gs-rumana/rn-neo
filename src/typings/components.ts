@@ -22,10 +22,8 @@ import type {
 export type ComponentSize = 'sm' | 'md' | 'lg';
 
 interface ToggleComponentProps
-  extends Omit<
-      RNPressableProps,
-      'style' | 'disabled' | 'children' | 'onPress'
-    >,
+  extends
+    Omit<RNPressableProps, 'style' | 'disabled' | 'children' | 'onPress'>,
     BorderProps,
     ShadowProps,
     SpacingProps {
