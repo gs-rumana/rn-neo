@@ -42,7 +42,12 @@ export default function App() {
         },
       }}
     >
-      <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
+      <View
+        style={[
+          styles.appContainer,
+          { backgroundColor: theme.colors.background },
+        ]}
+      >
         <Showcase />
       </View>
     </NeoProvider>
@@ -489,6 +494,9 @@ function Section({
 }
 
 const styles = StyleSheet.create({
+  appContainer: {
+    flex: 1,
+  },
   scroll: {
     flex: 1,
   },
