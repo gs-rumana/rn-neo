@@ -3,14 +3,12 @@ import { HomeLayout } from 'fumadocs-ui/layouts/home';
 import { baseOptions } from '@/lib/layout.shared';
 import { appName, siteTagline, siteDescription, siteUrl, ogImage } from '@/lib/shared';
 import { Hero } from '@/components/landing/Hero';
-import { Playground } from '@/components/landing/Playground';
-import { Features } from '@/components/landing/Features';
+import { TokenSentence } from '@/components/landing/token-sentence/TokenSentence';
 import { Install } from '@/components/landing/Install';
-import { FinalCta } from '@/components/landing/FinalCta';
 import { Footer } from '@/components/landing/Footer';
 
 export function meta({}: Route.MetaArgs) {
-  const title = `${appName} — ${siteTagline}`;
+  const title = `${appName}: ${siteTagline}`;
   return [
     { title },
     { name: 'description', content: siteDescription },
@@ -31,12 +29,12 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
   return (
-    <HomeLayout {...baseOptions()} className="overflow-x-hidden">
+    // overflow-x-clip (not -hidden): hidden turns the layout into a scroll
+    // container, which breaks the sticky nav and the sticky token preview.
+    <HomeLayout {...baseOptions()} className="overflow-x-clip">
       <Hero />
-      <Playground />
-      <Features />
+      <TokenSentence />
       <Install />
-      <FinalCta />
       <Footer />
     </HomeLayout>
   );

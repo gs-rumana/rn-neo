@@ -79,13 +79,15 @@ html > body[data-scroll-locked] {
   --spacing-reverseBoxShadowY: -4px;
   --font-weight-base: 500;
   --font-weight-heading: 700;
-  --animate-line-shadow: line-shadow 20s linear infinite;
-  @keyframes line-shadow {
-  0% {
-    background-position: 0 0;
+  /* landing token section: a changed code line flashes yellow, then settles */
+  --animate-code-flash: code-flash 0.7s ease-out;
+  @keyframes code-flash {
+    0% {
+      background-color: var(--secondary);
+      color: #000;
     }
-  100% {
-    background-position: 100% -100%;
+    100% {
+      background-color: transparent;
     }
   }
 }
@@ -343,6 +345,34 @@ html > body[data-scroll-locked] {
     url('/hideout.svg');
   background-repeat: repeat;
   background-size: 80px;
+}
+
+/* Hero phone: a yellow frame crops it, and scrolling the page slides it through the frame,
+   along its own 23deg lean, from its top edge to its bottom edge. Everything scales with
+   --phone-w, so the travel is a fixed share of the 1081x1350 render:
+   y = (render 1.2488w + 2 x inset 0.026w - frame 0.685w) / render 1.2488w = 49.3%
+   x = 25.5% of its width, which keeps the phone's centre line on the frame's centre.
+   --phone-w is repeated as `sizes` in Hero.tsx. The scroll range and spring live there too. */
+.hero-stage {
+  --phone-w: max(min(64vw, 920px), min(128vw, 500px));
+  height: calc(var(--phone-w) * 0.685);
+  /* Its contents move by transform, so they can't anchor the scroll: restoring an anchor saved
+     with the phone mid-travel throws the page down by hundreds of px on reload. */
+  overflow-anchor: none;
+}
+.hero-phone {
+  top: calc(var(--phone-w) * 0.026);
+  left: calc(50% - var(--phone-w) / 2);
+  width: var(--phone-w);
+  transform: translate(-12.5%, 0);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-phone {
+    /* --travel (0 to 1) comes from the spring in Hero.tsx. It changes every frame on the main
+       thread, so keep the phone on its own layer or its images re-raster each time. */
+    will-change: transform;
+    transform: translate(calc(-12.5% + 25.5% * var(--travel, 0)), calc(-49.3% * var(--travel, 0)));
+  }
 }
 
 /* hand-drawn underline (fill = primary) */

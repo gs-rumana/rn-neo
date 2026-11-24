@@ -27,17 +27,17 @@ export const links: Route.LinksFunction = () => [
 
 // Site-wide SEO defaults. Leaf routes (home, docs) override title/description.
 export const meta: Route.MetaFunction = () => [
-  { title: `${appName} — ${siteTagline}` },
+  { title: `${appName}: ${siteTagline}` },
   { name: 'description', content: siteDescription },
   { name: 'theme-color', content: '#a3e635' },
   { property: 'og:type', content: 'website' },
   { property: 'og:site_name', content: appName },
-  { property: 'og:title', content: `${appName} — ${siteTagline}` },
+  { property: 'og:title', content: `${appName}: ${siteTagline}` },
   { property: 'og:description', content: siteDescription },
   { property: 'og:url', content: siteUrl },
   { property: 'og:image', content: ogImage },
   { name: 'twitter:card', content: 'summary_large_image' },
-  { name: 'twitter:title', content: `${appName} — ${siteTagline}` },
+  { name: 'twitter:title', content: `${appName}: ${siteTagline}` },
   { name: 'twitter:description', content: siteDescription },
   { name: 'twitter:image', content: ogImage },
 ];
