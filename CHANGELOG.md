@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Changed
+
+- **One-step setup:** `Checkbox` draws its tick with views instead of the `NeoIcons` font, so installing the package is the whole setup. There's no font to link or `expo prebuild` to run, and the tick also works in Expo Go and Snack.
+
+### Fixed
+
+- **Checkbox tick on npm installs:** the published 0.4.0 package didn't include `NeoIcons.ttf`, so the font-linking step had nothing to link.
+
+### Removed
+
+- `NeoIcons.ttf`, `react-native.config.js` and the Expo config plugin's font linking. `app.plugin.js` stays as a no-op, so `"plugins": ["rn-neo"]` in `app.json` keeps working and can be removed.
+
+---
+
 ## [0.4.0] - 2026-06-26
 
 ### Added

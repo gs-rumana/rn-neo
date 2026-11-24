@@ -17,8 +17,7 @@ Package manager is **Yarn 4** (`packageManager` in package.json). Node version i
 Library (run from repo root):
 - `yarn typecheck` — `tsc` (no emit)
 - `yarn lint` — eslint over `**/*.{js,ts,tsx}`
-- `yarn prepare` — full build: `bob build` (commonjs + esm + types into `lib/`) then `build:plugin`
-- `yarn build:plugin` — compile the Expo config plugin (`plugin/src` → `plugin/build`)
+- `yarn prepare` — full build: `bob build` (commonjs + esm + types into `lib/`)
 - `yarn clean` — remove `lib/`
 
 There is **no test runner** configured. Verification is typecheck + lint + the example app.
@@ -80,16 +79,14 @@ themes, all typings, all components). This is the single barrel; keep it in sync
 
 `react-native-builder-bob` emits CommonJS, ESM, and TypeScript declarations to `lib/`.
 The `exports`/`main`/`module`/`types` map in package.json points consumers there. Only
-`lib/`, the plugin build, and a few config files are published (`files` array).
+`lib/` and `app.plugin.js` are published (`files` array).
 
-### Expo config plugin (font linking)
+### No native setup
 
-`plugin/src/index.ts` is an Expo config plugin (exposed as `rn-neo/app.plugin`) that
-links the bundled `assets/fonts/NeoIcons.ttf` used by icon-based components (e.g.
-Checkbox): iOS via Info.plist `UIAppFonts` + Xcode Resources group, Android by copying
-the ttf into `app/src/main/assets/fonts`. RN CLI users link via `npx react-native-asset`
-instead (`react-native.config.js`). The plugin is built separately
-(`plugin/tsconfig.json`) into `plugin/build/`.
+Installing the package is the whole setup, and the docs and landing page promise that. Keep it true:
+don't add assets that need linking (Checkbox draws its tick with views rather than an icon font).
+`app.plugin.js` is a no-op Expo config plugin, kept so apps that still list `"rn-neo"` under
+`plugins` keep building.
 
 ## Docs site (`docs/`)
 

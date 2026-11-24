@@ -33,8 +33,7 @@
         {
           "fonts": ["./assets/fonts"]
         }
-      ],
-      "rn-neo"
+      ]
     ]
   }
 }

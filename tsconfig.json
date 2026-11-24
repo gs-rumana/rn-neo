@@ -28,5 +28,5 @@
     "verbatimModuleSyntax": true,
     "types": ["node"]
   },
-  "exclude": ["node_modules", "lib", "docs", "plugin"]
+  "exclude": ["node_modules", "lib", "docs"]
 }

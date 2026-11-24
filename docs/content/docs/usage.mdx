@@ -3,19 +3,8 @@ title: Usage
 description: Usage of RN Neo package in your React Native project
 ---
 
-<Callout>After installing RN Neo and its peer dependencies, you can start using
-it in your project.</Callout>
-
-- Wrap your root component in `NeoProvider` from `rn-neo`. Do this in your
-  `App.js` file:
-
-```tsx
-import { NeoProvider } from 'rn-neo';
-
-export default function App() {
-  return <NeoProvider>{/* Your app code */}</NeoProvider>;
-}
-```
+<Callout>After installing RN Neo, import a component and use it. There's nothing to set
+up first.</Callout>
 
 - Import the components
 
@@ -30,3 +19,18 @@ import { Pressable, Text } from 'rn-neo';
   <Text>Sign Up</Text>
 </Pressable>
 ```
+
+## Theme
+
+Components use `DefaultLightTheme` until you wrap your app in `NeoProvider`. Add it when you want
+dark mode or your own tokens:
+
+```tsx
+import { NeoProvider, DefaultDarkTheme } from 'rn-neo';
+
+export default function App() {
+  return <NeoProvider theme={DefaultDarkTheme}>{/* Your app code */}</NeoProvider>;
+}
+```
+
+See [Customization](/docs/customization) for every token you can change.

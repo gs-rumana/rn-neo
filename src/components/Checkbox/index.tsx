@@ -1,6 +1,6 @@
 import { memo, useMemo, useState } from 'react';
-import { Pressable, Text } from 'react-native';
-import type { ViewStyle, TextStyle } from 'react-native';
+import { PixelRatio, Pressable, View } from 'react-native';
+import type { ViewStyle } from 'react-native';
 import Animated from 'react-native-reanimated';
 
 import { useNeo } from '../../core/hooks/useNeo';
@@ -17,6 +17,12 @@ const SIZE_MAP: Record<ComponentSize, number> = {
   md: 22,
   lg: 28,
 };
+
+/**
+ * The tick is the right and bottom borders of a box turned 45°, so no icon font has to be linked.
+ * Lengths are fractions of `size * 0.7` and match the NeoIcons glyph that Checkbox used to render.
+ */
+const TICK = { short: 0.3758, long: 0.6243, stroke: 0.0836 };
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -129,14 +135,25 @@ const Checkbox = memo(function Checkbox({
     ]
   );
 
-  const indicatorStyle = useMemo<TextStyle>(
-    () => ({
-      fontFamily: 'NeoIcons',
-      fontSize: containerSize * 0.7,
-      color: resolvedCheckColor,
-    }),
-    [containerSize, resolvedCheckColor]
-  );
+  const tickStyle = useMemo<ViewStyle>(() => {
+    const unit = containerSize * 0.7;
+    const short = unit * TICK.short;
+    // Browsers floor a border to whole device pixels, which would thin the tick by up to a third.
+    const stroke = PixelRatio.roundToNearestPixel(unit * TICK.stroke);
+
+    return {
+      width: short,
+      height: unit * TICK.long,
+      borderRightWidth: stroke,
+      borderBottomWidth: stroke,
+      borderColor: resolvedCheckColor,
+      // Turning the box about its centre leaves the visible tick low by this much.
+      transform: [
+        { translateY: (-(short - stroke) / 2) * Math.SQRT1_2 },
+        { rotate: '45deg' },
+      ],
+    };
+  }, [containerSize, resolvedCheckColor]);
 
   return (
     <AnimatedPressable
@@ -161,7 +178,7 @@ const Checkbox = memo(function Checkbox({
         disabled,
       }}
     >
-      {checked ? <Text style={indicatorStyle}>{'\uf000'}</Text> : null}
+      {checked ? <View style={tickStyle} /> : null}
     </AnimatedPressable>
   );
 });

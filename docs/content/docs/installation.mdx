@@ -8,7 +8,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 <Callout type="warn">From `v4` of `react-native-reanimated`, you must also
 install `react-native-worklets` as a peer dependency.</Callout>
 
-- Run the following commands in your project root directory:
+Run this in your project root. It's the whole setup: there's no provider to add, font to link or
+native step to run.
 
 <Tabs defaultValue="pnpm">
   <TabsList className="grid w-full grid-cols-4">
@@ -34,34 +35,19 @@ install `react-native-worklets` as a peer dependency.</Callout>
   </TabsContent>
   <TabsContent value="expo">
     ```bash
-    expo install rn-neo react-native-reanimated react-native-worklets
+    npx expo install rn-neo react-native-reanimated react-native-worklets
     ```
   </TabsContent>
 </Tabs>
 
-### Expo
-
-- If you are using Expo, you need to add the following to your `app.json` file:
-
-```json
-{
-  "expo": {
-    "plugins": [
-      // ...other plugins,
-      "rn-neo"
-    ]
-  }
-}
-```
-
-- Then run `expo prebuild` to generate the native code.
-
 ### React Native CLI
 
-- If you are using React Native CLI project, you need to run the following command in your terminal:
+Expo projects include the Worklets Babel plugin already. On the React Native CLI, add
+`react-native-worklets/plugin` to `babel.config.js` as the
+[Reanimated setup guide](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/getting-started/)
+describes.
 
-```bash
-npx react-native-asset
-```
+### Upgrading from 0.4
 
-- This will link necessary assets for RN Neo theme.
+Earlier versions linked an icon font for `Checkbox`. It now draws its tick without one, so you can
+remove `"rn-neo"` from the `plugins` in `app.json`. Leaving it in is harmless.
