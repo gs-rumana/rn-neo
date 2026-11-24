@@ -90,5 +90,3 @@ android/generated
 # React Native Nitro Modules
 nitrogen/
 
-# Expo plugin
-plugin/build/

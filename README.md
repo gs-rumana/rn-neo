@@ -19,47 +19,21 @@ Built on top of **React Native Reanimated 4** for smooth, performant animations 
 yarn add rn-neo react-native-reanimated react-native-worklets
 ```
 
-Follow the [Reanimated installation guide](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/getting-started) for Babel plugin setup and additional configuration.
-
-### Font linking
-
-`rn-neo` uses an internal icon font for components like `Checkbox`. Link it based on your setup:
-
-**Expo**
-
-Add the plugin to your `app.json`:
-
-```json
-{
-  "plugins": ["rn-neo"]
-}
-```
-
-**React Native CLI**
-
-```sh
-npx react-native-asset
-```
+That's the whole setup: there's no provider to add, font to link or native step to run. On the React Native CLI, Reanimated also needs its Babel plugin; follow the [Reanimated installation guide](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/getting-started). Expo projects include it already.
 
 ## Usage
 
-Wrap your app with `NeoProvider`:
+Import a component and use it:
 
 ```tsx
-import { NeoProvider, DefaultLightTheme } from 'rn-neo';
+import { Pressable, Text } from 'rn-neo';
 
-export default function App() {
-  return (
-    <NeoProvider theme={DefaultLightTheme}>
-      <YourApp />
-    </NeoProvider>
-  );
-}
+<Pressable backgroundColor="primary">
+  <Text>Sign Up</Text>
+</Pressable>
 ```
 
-`DefaultLightTheme` is used automatically if you don't pass a `theme` prop.
-
-For dark mode, switch themes based on the system preference or your own logic:
+Components use `DefaultLightTheme` until you wrap your app in `NeoProvider`. For dark mode, switch themes based on the system preference or your own logic:
 
 ```tsx
 import { useColorScheme } from 'react-native';

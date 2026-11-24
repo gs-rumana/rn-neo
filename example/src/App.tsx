@@ -24,7 +24,6 @@ export default function App() {
     'SpaceGrotesk-Bold': require('../assets/fonts/SpaceGrotesk-Bold.ttf'),
     'SpaceGrotesk-Medium': require('../assets/fonts/SpaceGrotesk-Medium.ttf'),
     'SpaceGrotesk-Regular': require('../assets/fonts/SpaceGrotesk-Regular.ttf'),
-    'NeoIcons': require('rn-neo/assets/fonts/NeoIcons.ttf'),
   });
 
   if (!fontsLoaded) {

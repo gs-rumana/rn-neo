@@ -1,92 +1,126 @@
+import { useRef, type CSSProperties } from 'react';
 import { Link } from 'react-router';
-import { ArrowRight, Star } from 'lucide-react';
+import { motion, useScroll, useSpring, type MotionValue } from 'motion/react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { gitConfig } from '@/lib/shared';
-import { LineShadowText } from '../ui/line-shadow-text';
+import { components, snackUrl } from '@/lib/shared';
+import { cn } from '@/lib/utils';
+
+/**
+ * The headline size `--h`, set on an `@container` wrapper whose width is the
+ * hero's content box. The one-line h1 below measures 12.65em (Space Grotesk
+ * 700, tracking -0.035em, Tourney 400 "refuses"), so at 7.5cqi it fills ~94.9%
+ * of the box: >=3.5% slack at every width. The vw fallback (no container
+ * units) is sized so the line still fits at 320px.
+ */
+const headlineUnit =
+  '[--h:min(6.6vw,6rem)] supports-[width:1cqi]:[--h:min(7.5cqi,7rem)]';
+
+const COUNT_WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
+const countWord = COUNT_WORDS[components.length] ?? String(components.length);
+
+/**
+ * Gives the phone weight: it trails the scroll by about 150ms and settles without a rebound.
+ * More stiffness shortens the trail. Keep damping = 1.84 * sqrt(stiffness) to avoid a rebound.
+ * Use stiffness and damping: bounce or duration restart from zero velocity on every retarget.
+ * restDelta is in progress units; Motion's default can end on a snap of up to half a pixel.
+ * No skipInitialAnimation: at scroll 0 it stays armed and swallows the first real scroll. The
+ * cost is that a reload or back navigation mid-hero slides the phone into place.
+ */
+const PHONE_SPRING = { stiffness: 200, damping: 26, restDelta: 0.0001 };
 
 export function Hero() {
+  const heroRef = useRef<HTMLElement>(null);
+  // The hero starts under the 56px nav, so this runs from scroll 0 to 62% of the hero's height.
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start 56px', '62% 56px'] });
+  const travel = useSpring(scrollYProgress, PHONE_SPRING);
+
   return (
-    <section className="cross-bg px-4 pt-16 pb-20 md:pt-24">
-      <div className="container mx-auto grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-12 items-center">
-        {/* copy */}
-        <div>
-          {/* <span className="inline-flex items-center gap-2 bg-secondary text-black border-2 border-border px-3 py-1 text-sm font-bold brutal-shadow brutal-shadow-sm">
-            <Star className="size-3.5 fill-black" />
-            React Native · Neubrutalist UI
-          </span> */}
-
-          <h1 className="mt-6 text-5xl md:text-7xl font-bold leading-[0.95] tracking-tight">
-            UI that
-            <br />
-            <span className="font-outline text-primary brutal-text-shadow">refuses</span>{' '}
-            to <LineShadowText>blend</LineShadowText> in.
-          </h1>
-
-          <p className="mt-6 text-lg md:text-xl text-fd-muted-foreground max-w-xl">
-            <span className="font-semibold text-foreground">RN Neo</span> is a component
-            library for React Native — raw borders, hard zero-blur shadows, flat loud color.
-            Token-driven, fully typed, Expo-ready.
-          </p>
-
-          <div className="mt-8 flex flex-wrap gap-4">
-            <Button asChild className="border-2 border-border h-12 px-7 text-base">
-              <Link to="/docs">
-                Get Started <ArrowRight className="size-4" />
-              </Link>
-            </Button>
-            <Button asChild variant="neutral" className="border-2 border-border h-12 px-7 text-base">
-              <a
-                href={`https://github.com/${gitConfig.user}/${gitConfig.repo}`}
-                target="_blank"
-                rel="noreferrer"
+    <section ref={heroRef} className="w-full">
+      <div className="cross-bg">
+        <div className="mx-auto max-w-[1360px] px-4 pt-10 pb-6 md:px-6 md:pt-16 md:pb-8 lg:pt-20">
+          <div className={cn('@container', headlineUnit)}>
+            {/*
+              Spaces live inside the string literals: a bare {' '} becomes a whitespace-only
+              text node that Chrome drops from the accessibility tree ("UI thatrefusesto…").
+            */}
+            <h1 className="whitespace-nowrap text-[length:var(--h)] font-bold leading-[0.95] tracking-[-0.035em]">
+              {'UI that '}
+              <span
+                className="font-outline font-normal tracking-normal text-primary brutal-text-shadow"
+                style={{ '--bs-offset': '0.045em' } as CSSProperties}
               >
-                <Star className="size-4" /> Star on GitHub
-              </a>
-            </Button>
+                refuses
+              </span>
+              {' to blend in.'}
+            </h1>
           </div>
 
-          <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-fd-muted-foreground font-mono">
-            <span>7+ components</span>
-            <span>· dark mode</span>
-            <span>· runtime theming</span>
-            <span>· zero boilerplate</span>
+          <div className="mt-6 flex flex-col gap-6 md:mt-8 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
+            <p className="max-w-[40rem] text-[1.0625rem] leading-relaxed text-fd-muted-foreground md:text-xl md:leading-normal">
+              <strong className="font-semibold text-foreground">RN Neo</strong>
+              {` is ${countWord} React Native components with raw borders, hard shadows and flat, loud color, driven by one theme.`}
+            </p>
+
+            <div className="flex flex-wrap gap-3 md:gap-4 lg:flex-none">
+              <Button asChild className="h-12 px-6 text-base max-sm:flex-auto">
+                <Link to="/docs">
+                  Get started <ArrowRight aria-hidden />
+                </Link>
+              </Button>
+              <Button asChild variant="neutral" className="h-12 px-6 text-base max-sm:flex-auto">
+                <a href={snackUrl} target="_blank" rel="noopener noreferrer">
+                  Open in Expo Snack <ArrowUpRight aria-hidden />
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              </Button>
+            </div>
           </div>
         </div>
-
-        {/* live showcase */}
-        <ShowcaseCard />
       </div>
+
+      <PhoneStage travel={travel} />
     </section>
   );
 }
 
-function ShowcaseCard() {
-  // Density handled by srcSet (1x/2x/3x); theme handled by .dark class toggle.
-  // Media-query <picture> can't be used — dark mode is class-based here.
-  const common =
-    'w-full max-w-[360px] mx-auto';
+/**
+ * The example app on a phone, cropped by a yellow frame. Scrolling the page slides the phone
+ * through the frame: `travel` (0 to 1) is turned into a position by .hero-phone in app.css.
+ */
+function PhoneStage({ travel }: { travel: MotionValue<number> }) {
+  // Theme is handled by the .dark class toggle, so a media-query <picture> can't be used.
+  // The shadow is on the imgs, not .hero-phone, so it is baked into the phone's layer once.
+  // On the element with will-change, the compositor would re-apply the filter every frame.
+  const img = 'block h-auto w-full [filter:drop-shadow(8px_8px_0_#000)] md:[filter:drop-shadow(12px_12px_0_#000)]';
+  // The same widths as --phone-w in app.css, written as media queries.
+  const sizes = '(min-width: 1438px) 920px, (min-width: 782px) 64vw, (min-width: 391px) 500px, 128vw';
   return (
-    <div className="relative">
-      <img
-        src="/hero/rn-neo-light@1x.webp"
-        srcSet="/hero/rn-neo-light@1x.webp 1x, /hero/rn-neo-light@2x.webp 2x, /hero/rn-neo-light@3x.webp 3x"
-        width={497}
-        height={801}
-        alt="RN Neo components showcased in a mobile app"
-        loading="eager"
-        decoding="async"
-        className={`${common} block dark:hidden`}
-      />
-      <img
-        src="/hero/rn-neo-dark@1x.webp"
-        srcSet="/hero/rn-neo-dark@1x.webp 1x, /hero/rn-neo-dark@2x.webp 2x, /hero/rn-neo-dark@3x.webp 3x"
-        width={497}
-        height={801}
-        alt="RN Neo components showcased in a mobile app, dark theme"
-        loading="eager"
-        decoding="async"
-        className={`${common} hidden dark:block`}
-      />
+    <div className="mx-auto max-w-[1360px] px-4 md:px-6">
+      <div className="hero-stage relative overflow-clip border-2 border-border bg-secondary shadow-[8px_8px_0_0_var(--border)] md:shadow-[12px_12px_0_0_var(--border)]">
+        <div className="absolute inset-0 motion-safe:animate-in motion-safe:slide-in-from-bottom-8 motion-safe:duration-700 motion-safe:ease-out">
+          <motion.div style={{ '--travel': travel } as CSSProperties} className="hero-phone absolute">
+            <img
+              src="/hero/rn-neo-light@2x.webp"
+              srcSet="/hero/rn-neo-light@1x.webp 541w, /hero/rn-neo-light@2x.webp 1081w, /hero/rn-neo-light@3x.webp 1622w"
+              sizes={sizes}
+              alt="The RN Neo example app on a phone, showing cards, text styles, badges and buttons"
+              loading="eager"
+              decoding="async"
+              className={cn(img, 'dark:hidden')}
+            />
+            <img
+              src="/hero/rn-neo-dark@2x.webp"
+              srcSet="/hero/rn-neo-dark@1x.webp 541w, /hero/rn-neo-dark@2x.webp 1081w, /hero/rn-neo-dark@3x.webp 1622w"
+              sizes={sizes}
+              alt="The RN Neo example app on a phone in the dark theme, showing cards, text styles, badges and buttons"
+              loading="eager"
+              decoding="async"
+              className={cn(img, 'hidden dark:block')}
+            />
+          </motion.div>
+        </div>
+      </div>
     </div>
   );
 }
